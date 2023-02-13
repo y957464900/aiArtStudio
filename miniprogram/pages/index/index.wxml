@@ -1,0 +1,26 @@
+<!--index.wxml-->
+<view class="container">
+	<image class="backgroudImage" src="/images/background/background.png"></image>
+	<view class="theme">AI Art Studio</view>
+	<view class="title"><span id="ai">AI-</span>人像动漫化</view>
+	<view class="boxCenter">
+		<image id="imageLoad" bindload="imageLoad" data-index="{{ id }}" style="width:{{ images[id].width }}rpx; height:{{ images[id].height }}rpx;" src="{{upload}}"></image>
+	</view>
+	<view class="buttonBox">
+		<view class="{{buttonDisable?'buttonDisable':'button'}}" wx:for="{{buttonList}}" bindtap="{{button.bindtap}}" wx:for-item="button" wx:key="i" wx:for-index="i">
+			<view class="buttonTextTitle">{{button.title}}</view>
+		</view>
+	</view>
+	<view class="Radio">
+		<image class="RadioImage" src="/images/background/check-box.png"></image>
+		<view class="{{item.checked?'chooseTypeContentSelect':'chooseTypeContent'}}'" wx:for="{{list}}" wx:key="index" data-id="{{index}}" bindtap="choose">
+			<view>{{item.name}}</view>
+		</view>
+	</view>
+	<view class="submitBox">
+		<view class="{{buttonDisable?'buttonDisable':'button'}}" bindtap="submit" style="width: 50%;">
+			<view class="submitTextTitle">开始转换</view>
+		</view>
+	</view>
+
+</view>

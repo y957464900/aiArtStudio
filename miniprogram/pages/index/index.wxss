@@ -1,0 +1,157 @@
+/**index.wxss**/
+
+page {
+	height: 100%;
+	width: 100%;
+}
+
+.backgroudImage {
+	height: 100%;
+	width: 100%;
+	background-color: #ffffff;
+	position: absolute;
+	z-index: -999;
+}
+
+.theme {
+	font-family: PingFang SC;
+	font-weight: 700;
+	color: #395D82;
+	font-size: 100%;
+	margin-bottom: 3%;
+	margin-top: 10%;
+	margin-left: 4%;
+}
+
+#ai {
+	text-align: left;
+	font-family: PingFang SC;
+	color: #ff0000;
+	font-size: 90%;
+	margin-left: 2%
+}
+
+.title {
+	font-family: PingFang SC;
+	color: #FD86A4;
+	font-size: 90%;
+}
+
+.boxCenter {
+	text-align: center;
+	padding-top: 10%;
+	border-width: 100rpx;
+	border-color: medium;
+}
+
+#imageLoad {
+	border-radius: 2%;
+	border-color: #5C4974;
+	border-width: medium;
+	border-style: solid;
+}
+
+.buttonDisable {
+	pointer-events: none;
+	margin-top: 10%;
+	border-radius: 10px;
+	background-color: #FB88A5;
+	height: 100rpx;
+	width: 40%;
+	padding-bottom: 1rpx;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.button {
+	margin-top: 4%;
+	border-radius: 10px;
+	background-color: #FB88A5;
+	height: 80%;
+	width: 30%;
+	padding-bottom: 1rpx;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+}
+
+.buttonBox {
+	display: flex;
+	padding-top: 5%;
+	align-items: center;
+	justify-content: space-evenly;
+	height: 8%;
+}
+
+.buttonTextTitle {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: medium;
+	color: #ffffff;
+}
+
+.Radio {
+	width: 100%;
+	height: 5%;
+	margin-top: 10%;
+	font-size: x-small;
+	display: flex;
+	justify-content: center;
+}
+
+.RadioImage {
+	width: 90%;
+	height: 6%;
+	display: flex;
+	align-items: center;
+	position: absolute;
+	z-index: -999;
+	padding: 1%;
+	justify-content: space-around;
+}
+
+.chooseTypeContent {
+	margin-top: 2%;
+	width: 17%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	justify-content: center;
+	border-radius: 50%;
+	color: #B6CEE3;
+	font-weight: 900;
+}
+
+.chooseTypeContentSelect {
+	border-radius: 50%;
+	margin-top: 2%;
+	width: 17%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	flex-direction: column;
+	background: #8DCBFB;
+	color: #2F5F87;
+	font-weight: 900;
+}
+
+.submitBox {
+	display: flex;
+	padding-top: 10%;
+	align-items: center;
+	justify-content: space-evenly;
+	height: 8%;
+}
+
+.submitTextTitle {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: small;
+	color: #655466;
+	font-weight: 900;
+}
