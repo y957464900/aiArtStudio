@@ -13,7 +13,7 @@ const uuid = function () {
 
 const writeFileBase64 = function (that) {
 	const fs = wx.getFileSystemManager(); //获取全局唯一的文件管理器
-	const imagePath = wx.env.USER_DATA_PATH + "/" + util.uuid() + ".jpg"
+	const imagePath = wx.env.USER_DATA_PATH + "/" + uuid() + ".jpg"
 	fs.writeFile({ // 写文件
 		filePath: imagePath, // wx.env.USER_DATA_PATH 指定临时文件存入的路径，后面字符串自定义
 		data: that.data.upload.replace(/^data:image\/\w+;base64,/, ""),

@@ -187,33 +187,59 @@ Page({
 		that.setData({
 			buttonDisable: true,
 		})
-		wx.uploadFile({
-			url: 'https://gs-aistudio.top/cv/person_image_cartoon/' + that.data.chooseModelType,
-			filePath: that.data.upload,
-			name: "file",
-			success: function (res) {
-				if (res.statusCode == 200) {
-					let imagePath = "data:image/jpg;base64," + res.data.replaceAll("\"", "")
-					that.setData({
-						upload: imagePath,
-						isSave: false,
+
+		wx.cloud.callFunction({
+			name:'test',
+			data: {
+				method: "POST",
+				uri: 'http://101.42.236.78:8000/cv/person_image_cartoon/' + that.data.chooseModelType,
+				formData: {
+					"file_url": wx.cloud.CDN({
+						type: "filePath",
+						filePath: that.data.upload
 					})
 				}
-			},
-			fail: function (err) {
-				wx.showToast({
-					title: err.errMsg,
-					icon: "none",
-					duration: 2000
-				})
-			},
-			complete: function (result) {
-				wx.hideLoading();
-				that.setData({
-					buttonDisable: false,
-				})
 			}
-		})
+    }).then(res =>{
+			that.setData({
+				upload: "data:image/png;base64," + res.result.replaceAll("\"", ""),
+				isSave: false,
+			}),
+			wx.hideLoading();
+			that.setData({
+				buttonDisable: false,
+			})
+    }).catch(err => {
+      console.error("请求失败："+err);
+    })
+
+		// wx.uploadFile({
+		// 	url: 'https:///cv/person_image_cartoon/' + that.data.chooseModelType,
+		// 	filePath: that.data.upload,
+		// 	name: "file",
+		// 	success: function (res) {
+		// 		if (res.statusCode == 200) {
+		// 			let imagePath = "data:image/jpg;base64," + res.data.replaceAll("\"", "")
+		// 			that.setData({
+		// 				upload: imagePath,
+		// 				isSave: false,
+		// 			})
+		// 		}
+		// 	},
+		// 	fail: function (err) {
+		// 		wx.showToast({
+		// 			title: err.errMsg,
+		// 			icon: "none",
+		// 			duration: 2000
+		// 		})
+		// 	},
+		// 	complete: function (result) {
+		// 		wx.hideLoading();
+		// 		that.setData({
+		// 			buttonDisable: false,
+		// 		})
+		// 	}
+		// })
 	},
 
 	download: function () {
