@@ -4,7 +4,8 @@
 	<view class="theme">AI Art Studio</view>
 	<view class="title"><span id="ai">AI-</span>人像动漫化</view>
 	<view class="boxCenter">
-		<image id="imageLoad" bindload="imageLoad" data-index="{{ id }}" style="width:{{ images[id].width }}rpx; height:{{ images[id].height }}rpx;" src="{{upload}}"></image>
+		<image id="imageUp" bindload="imageLoad" data-index="{{ id }}" style="width:{{ images[id].width }}rpx; height:{{ images[id].height }}rpx;" src="{{upload}}"></image>
+		<image id="imageDown" bindload="imageLoad" data-index="{{ id }}" style="width:{{ images[id].width }}rpx; height:{{ images[id].height }}rpx;" src="{{download}}"></image>
 	</view>
 	<view class="buttonBox">
 		<view class="{{buttonDisable?'buttonDisable':'button'}}" wx:for="{{buttonList}}" bindtap="{{button.bindtap}}" wx:for-item="button" wx:key="i" wx:for-index="i">

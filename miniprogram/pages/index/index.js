@@ -5,7 +5,6 @@ const { envList } = require('../../envList.js');
 var util = require('../../utils/util.js');
 Page({
 	data: {
-		isSave: true,
 		buttonDisable: false,
 		showUploadTip: false,
 		buttonList: [{
@@ -16,23 +15,24 @@ Page({
 			bindtap: 'download',
 		}],
 		upload: '/images/cartoon.png',
+		download: '',
 		envList,
 		selectedEnv: envList[0],
 		haveCreateCollection: false,
 		chooseIndex: 0,
-		chooseModelType: "cartoon-3d",
+		chooseModelType: "cartoon",
 		imagesRes: "",
 		images: {},
 		id: "",
 		count: 1,
 		list: [{
-			name: "3D",
-			modelType: "cartoon-3d",
+			name: "日漫",
+			modelType: "cartoon",
 			checked: true,
 		},
 		{
-			name: "日漫",
-			modelType: "cartoon",
+			name: "3D",
+			modelType: "cartoon-3d",
 			checked: false,
 		},
 		{
@@ -54,11 +54,12 @@ Page({
 	choose: function (e) {
 		let index = e.currentTarget.dataset.id;
 		let list = this.data.list;
+		console.log(list[index].modelType)
 		list[this.data.chooseIndex].checked = false;
 		list[index].checked = true;
 		this.setData({
 			chooseIndex: index,
-			chooseModelType: list[this.data.chooseIndex].modelType,
+			chooseModelType: list[index].modelType,
 			list: this.data.list,
 		})
 	},
@@ -67,7 +68,7 @@ Page({
 		var $width = e.detail.width,  //获取图片真实宽度
 			$height = e.detail.height,
 			ratio = $height / $width;  //图片的真实宽高比例
-		var viewHeight = 465, viewWidth = 465 / ratio;  //计算的高度值
+		var viewHeight = 350, viewWidth = 350 / ratio;  //计算的高度值
 		var image = this.data.images;
 		image[e.currentTarget.id] = {
 			width: viewWidth,
@@ -90,7 +91,6 @@ Page({
 				var tempFilePaths = res.tempFilePaths
 				that.setData({
 					upload: tempFilePaths[0],
-					isSave: true,
 				})
 			}
 		})
@@ -173,26 +173,18 @@ Page({
 
 	submit: function () {
 		var that = this
-		if (!that.data.isSave) {
-			wx.showToast({
-				title: "请先下载或重新上传一张图片",
-				icon: "none",
-				duration: 2000
-			})
-			return
-		}
 		wx.showLoading({
 			title: '生成中，请稍后',
+			mask: true,
 		})
 		that.setData({
 			buttonDisable: true,
 		})
-
 		wx.cloud.callFunction({
 			name:'test',
 			data: {
 				method: "POST",
-				uri: 'http://101.42.236.78:8000/cv/person_image_cartoon/' + that.data.chooseModelType,
+				uri: 'http://gs-aistudio.top:8000/cv/person_image_cartoon/' + that.data.chooseModelType,
 				formData: {
 					"file_url": wx.cloud.CDN({
 						type: "filePath",
@@ -201,15 +193,18 @@ Page({
 				}
 			}
     }).then(res =>{
-			that.setData({
-				upload: "data:image/png;base64," + res.result.replaceAll("\"", ""),
-				isSave: false,
-			}),
 			wx.hideLoading();
 			that.setData({
 				buttonDisable: false,
 			})
+			that.setData({
+				download: "data:image/png;base64," + res.result.replaceAll("\"", ""),
+			})
     }).catch(err => {
+			that.setData({
+				buttonDisable: false,
+			})
+			wx.hideLoading();
       console.error("请求失败："+err);
     })
 
@@ -244,10 +239,6 @@ Page({
 
 	download: function () {
 		var that = this
-		if (that.data.isSave) {
-			util.writeFileToPhotosAlbum(that)
-			return
-		}
 		util.writeFileBase64(that)
 	}
 });

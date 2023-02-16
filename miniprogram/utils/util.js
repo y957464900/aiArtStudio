@@ -16,7 +16,7 @@ const writeFileBase64 = function (that) {
 	const imagePath = wx.env.USER_DATA_PATH + "/" + uuid() + ".jpg"
 	fs.writeFile({ // 写文件
 		filePath: imagePath, // wx.env.USER_DATA_PATH 指定临时文件存入的路径，后面字符串自定义
-		data: that.data.upload.replace(/^data:image\/\w+;base64,/, ""),
+		data: that.data.download.replace(/^data:image\/\w+;base64,/, ""),
 		encoding: "base64", //二进制流文件必须是 binary
 		success(res) {
 			wx.saveImageToPhotosAlbum({ // 新开页面打开文档
@@ -27,12 +27,6 @@ const writeFileBase64 = function (that) {
 						icon: "none",
 						duration: 2000,
 					})
-					// if (!that.data.isSave) {
-					that.setData({
-						isSave: true,
-						upload: imagePath,
-					})
-					// }
 				}
 			})
 		}
@@ -48,12 +42,6 @@ const writeFileToPhotosAlbum = function(that) {
 				icon: "none",
 				duration: 2000,
 			})
-			// if (!that.data.isSave) {
-			that.setData({
-				isSave: true,
-				upload: imagePath,
-			})
-			// }
 		}
 	})
 }
